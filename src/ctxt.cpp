@@ -3,6 +3,9 @@
 using namespace std;
 using namespace seal;
 
+WalrusCtxt::WalrusCtxt() {
+}
+
 WalrusCtxt::WalrusCtxt(scheme_type scheme) {
   // noise budget is set to invalid before encryption
   this->noise_budget = -1;

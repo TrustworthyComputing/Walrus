@@ -60,7 +60,8 @@ int main() {
   }
 
   WalrusCtxt ct2 = WalrusCtxt(scheme_type::bfv);
-  WalrusAdd(ct2, ct, ct, evaluator, true);
+  WalrusAdd(ct2, ct, ct);
+  WalrusAdd(ct2, ct, ct, evaluator);
   res_vec = ct2.WalrusDecryptVector(batch_encoder, decryptor);
   pass = true;
   for (uint64_t i = 0; i < slot_count; i++) {
@@ -78,8 +79,8 @@ int main() {
   } else {
     cout << "FAIL" << endl;
   }
-
-  WalrusAddPlain(ct2, ct, vec_pt, evaluator, true);
+  WalrusAddPlain(ct2, ct, vec_pt);
+  WalrusAddPlain(ct2, ct, vec_pt, evaluator);
   res_vec = ct2.WalrusDecryptVector(batch_encoder, decryptor);
   pass = true;
   for (uint64_t i = 0; i < slot_count; i++) {
@@ -97,8 +98,9 @@ int main() {
   } else {
     cout << "FAIL" << endl;
   }
-  
-  WalrusMult(ct2, ct, ct, evaluator, relin_keys, true);
+
+  WalrusMult(ct2, ct, ct);  
+  WalrusMult(ct2, ct, ct, evaluator, relin_keys);
   res_vec = ct2.WalrusDecryptVector(batch_encoder, decryptor);
   pass = true;
   for (uint64_t i = 0; i < 1000; i++) {
@@ -117,7 +119,8 @@ int main() {
     cout << "FAIL" << endl;
   }
 
-  WalrusMultPlain(ct2, ct, vec_pt, evaluator, true);
+  WalrusMultPlain(ct2, ct, vec_pt);
+  WalrusMultPlain(ct2, ct, vec_pt, evaluator);
   res_vec = ct2.WalrusDecryptVector(batch_encoder, decryptor);
   pass = true;
   for (uint64_t i = 0; i < 1000; i++) {

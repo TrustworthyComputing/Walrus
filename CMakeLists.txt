@@ -20,3 +20,9 @@ add_executable(noiseTests examples/noise_tests.cpp src/ctxt.cpp src/evaluator.cp
 target_include_directories(noiseTests PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_link_libraries(noiseTests SEAL::seal)
 target_include_directories(noiseTests PRIVATE ${SEAL_INCLUDE_DIRS})
+
+# Add neural network executable 
+add_executable(neuralNetwork examples/neural_network.cpp src/ctxt.cpp src/evaluator.cpp src/parameterizer.cpp)
+target_include_directories(neuralNetwork PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_link_libraries(neuralNetwork SEAL::seal)
+target_include_directories(neuralNetwork PRIVATE ${SEAL_INCLUDE_DIRS})

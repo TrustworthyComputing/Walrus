@@ -5,6 +5,8 @@
 #define _CTXT_HPP_
 class WalrusCtxt {
   public:
+    
+    WalrusCtxt();
 
     // Create ciphertext object
     WalrusCtxt(seal::scheme_type scheme);
@@ -20,7 +22,7 @@ class WalrusCtxt {
     // Encrypt plaintext vector (batching)
     void WalrusEncryptVector(seal::BatchEncoder& batch_encoder, seal::Encryptor& encryptor, 
                              std::vector<uint64_t>& vals);
-
+                                 
     // Encrypt plaintext vector of floats (batching)
     void WalrusEncryptVectorFloat(seal::Encryptor& encryptor, 
                                   seal::CKKSEncoder& encoder, std::vector<double>& vals, 

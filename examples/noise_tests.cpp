@@ -54,9 +54,9 @@ int main() {
   
   for (uint64_t i = 0; i < NUM_MULTS; i++) {
     if (i == 0) {
-      WalrusMult(ct2, ct, ct, evaluator, relin_keys, true);
+      WalrusMult(ct2, ct, ct, evaluator, relin_keys);
     } else {
-      WalrusMult(ct2, ct2, ct2, evaluator, relin_keys, true);
+      WalrusMult(ct2, ct2, ct2, evaluator, relin_keys);
     }
   }
   // cout << "Noise Budget @ " << NUM_MULTS << " mults: " << decryptor.invariant_noise_budget(ct2.ctxt) << endl;
