@@ -26,3 +26,9 @@ add_executable(neuralNetwork examples/neural_network.cpp src/ctxt.cpp src/evalua
 target_include_directories(neuralNetwork PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_link_libraries(neuralNetwork SEAL::seal)
 target_include_directories(neuralNetwork PRIVATE ${SEAL_INCLUDE_DIRS})
+
+# Add chi squared executable 
+add_executable(chiSquared examples/chi_squared.cpp src/ctxt.cpp src/evaluator.cpp src/parameterizer.cpp)
+target_include_directories(chiSquared PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_link_libraries(chiSquared SEAL::seal)
+target_include_directories(chiSquared PRIVATE ${SEAL_INCLUDE_DIRS})

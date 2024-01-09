@@ -13,6 +13,18 @@ void WalrusAddPlain(WalrusCtxt& ct_out, const WalrusCtxt& ct_a,
 void WalrusAddPlain(WalrusCtxt& ct_out, const WalrusCtxt& ct_a, 
                const seal::Plaintext& pt_b, seal::Evaluator& evaluator);
 
+void WalrusSub(WalrusCtxt& ct_out, const WalrusCtxt& ct_a, 
+               const WalrusCtxt& ct_b);
+
+void WalrusSub(WalrusCtxt& ct_out, const WalrusCtxt& ct_a, 
+               const WalrusCtxt& ct_b, seal::Evaluator& evaluator);
+
+void WalrusSubPlain(WalrusCtxt& ct_out, const WalrusCtxt& ct_a, 
+               const seal::Plaintext& pt_b);
+
+void WalrusSubPlain(WalrusCtxt& ct_out, const WalrusCtxt& ct_a, 
+               const seal::Plaintext& pt_b, seal::Evaluator& evaluator);
+
 void WalrusMult(WalrusCtxt& ct_out, const WalrusCtxt& ct_a, 
                const WalrusCtxt& ct_b);
 

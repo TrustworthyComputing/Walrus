@@ -25,6 +25,28 @@ void WalrusAddPlain(WalrusCtxt& ct_out, const WalrusCtxt& ct_a,
   evaluator.add_plain(ct_a.ctxt, pt_b, ct_out.ctxt);
 }
 
+void WalrusSub(WalrusCtxt& ct_out, const WalrusCtxt& ct_a, 
+               const WalrusCtxt& ct_b) {
+  ct_out.add_depth = (ct_a.add_depth > ct_b.add_depth) ? ct_a.add_depth + 1 : ct_b.add_depth + 1;
+  ct_out.mult_depth = (ct_a.mult_depth > ct_b.mult_depth) ? ct_a.mult_depth : ct_b.mult_depth;
+}
+
+void WalrusSub(WalrusCtxt& ct_out, const WalrusCtxt& ct_a, 
+               const WalrusCtxt& ct_b, Evaluator& evaluator) {
+  evaluator.sub(ct_a.ctxt, ct_b.ctxt, ct_out.ctxt);
+}
+
+void WalrusSubPlain(WalrusCtxt& ct_out, const WalrusCtxt& ct_a, 
+                    const Plaintext& pt_b) {
+  ct_out.add_depth = ct_a.add_depth;
+  ct_out.mult_depth = ct_a.mult_depth;
+}
+
+void WalrusSubPlain(WalrusCtxt& ct_out, const WalrusCtxt& ct_a, 
+                    const Plaintext& pt_b, Evaluator& evaluator) {
+  evaluator.sub_plain(ct_a.ctxt, pt_b, ct_out.ctxt);
+}
+
 void WalrusMult(WalrusCtxt& ct_out, const WalrusCtxt& ct_a, 
                 const WalrusCtxt& ct_b) {
   ct_out.add_depth = (ct_a.add_depth > ct_b.add_depth) ? ct_a.add_depth : ct_b.add_depth;

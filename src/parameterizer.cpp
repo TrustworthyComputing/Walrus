@@ -41,6 +41,7 @@ EncryptionParameters WalrusParameterize(vector<WalrusCtxt>& outputs,
     output_parms.set_poly_modulus_degree(poly_modulus_degree);
     output_parms.set_coeff_modulus(CoeffModulus::BFVDefault(poly_modulus_degree));
     output_parms.set_plain_modulus(PlainModulus::Batching(poly_modulus_degree, 20));
+    cout << "Poly degree: " << poly_modulus_degree << endl;
   }
   return output_parms;
 }

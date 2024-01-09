@@ -11,8 +11,8 @@ using namespace std;
 using namespace std::chrono;
 using namespace seal;
 
-#define IO_LEN 100
-#define NUM_HIDDEN_NEURONS 25
+#define IO_LEN 400
+#define NUM_HIDDEN_NEURONS 200
 
 vector<vector<Plaintext>> cloud_weights;
 
@@ -108,7 +108,6 @@ void client() {
   for (size_t i = 0; i < IO_LEN; i++) {
     inputs[i] = WalrusCtxt(scheme_type::bgv);
   }
-  
   // Get optimal parameters from Walrus (running on the cloud)
   EncryptionParameters parms = cloud_first_pass(inputs);
   // Set up SEAL context, keys, and engines based on parameters
@@ -123,12 +122,10 @@ void client() {
   Evaluator evaluator(context);
   Decryptor decryptor(context, secret_key);
   BatchEncoder batch_encoder(context);
-
   // Create generator for non-zero random 8-bit numbers for inputs
   random_device rd;
   mt19937 gen(rd());
   uniform_int_distribution<uint64_t> distribution(1, 255);
-
   // Encrypt batched inputs 
   size_t slot_count = batch_encoder.slot_count();
   for (size_t i = 0; i < IO_LEN; i++) {
@@ -138,7 +135,6 @@ void client() {
     }
     inputs[i].WalrusEncryptVector(batch_encoder, encryptor, in_vec);
   }
-
   // Run encrypted inference on the cloud
   high_resolution_clock::time_point t1 = high_resolution_clock::now();
   vector<WalrusCtxt> enc_res = cloud_second_pass(encryptor, evaluator, relin_keys, inputs);
@@ -146,7 +142,21 @@ void client() {
   duration<double> time_span = duration_cast<duration<double>>(t2 - t1);
   std::cout << "Inference Latency: " << time_span.count() << " seconds" << endl;;
   std::cout << "Amortized Latency: " << time_span.count() / slot_count << " seconds" << endl;
-
+  // Decrypt and postprocess the classification results
+  vector<uint64_t> top_scores(slot_count);
+  vector<int> top_class(slot_count);
+  for (size_t i = 0; i < enc_res.size(); i++) {
+    auto res_vec = enc_res[i].WalrusDecryptVector(batch_encoder, decryptor);
+    for (int j = 0; j < res_vec.size(); j++) {
+      if (res_vec[j] > top_scores[j]) {
+        top_scores[j] = res_vec[j];
+        top_class[j] = i;
+      }
+    }
+  }
+  // for (size_t i = 0; i < slot_count; i++) {
+  //   cout << "Classification #" << i << ": " << top_class[i] << endl;
+  // }
   return;
 }
 
