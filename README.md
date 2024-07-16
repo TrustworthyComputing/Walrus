@@ -45,6 +45,9 @@ make
 Custom executables can be readily added to the provided [CMakeLists.txt](https://github.com/TrustworthyComputing/Walrus/blob/main/CMakeLists.txt) in the same
 way both examples have been added (for instance, lines 31-34).
 
+## Acknowledgments
+This work was supported by the National Science Foundation (Award #2239334).
+
 <p align="center">
     <img src="https://github.com/TrustworthyComputing/Walrus/blob/main/images/twc.png" height="20%" width="20%">
 </p>
